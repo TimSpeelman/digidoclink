@@ -1,0 +1,51 @@
+body {
+    font-family: Verdana, sans-serif;
+    padding: 2rem;
+    line-height: 1.4;
+    font-size: 9pt;
+    overflow-wrap: break-word;
+}
+
+p {
+    margin: 0 0 1em 0;
+}
+
+main {
+    max-width: 30rem;
+    margin: 0 auto;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+h2 {
+    font-weight: normal;
+    font-style: italic;
+}
+
+h1,
+h2 {
+    font-size: 100%;
+    margin-bottom: 0;
+}
+
+.subtitle {
+    color: #999;
+}
+
+input {
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.invalid {
+    border: 1px solid red;
+}
+
+.invalid:focus {
+    outline-color: red;
+}

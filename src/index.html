@@ -1,16 +1,38 @@
 <html>
-    <head>
-        <title>Tool voor Digidoclink</title>
-    </head>
-    <body>
-        <p>Door Digidoc gemaakte hyperlinks leiden naar een onhandige weergave met minder mogelijkheden. Deze tool zet deze links om naar handigere links.</p>
-        <p>De tool zet ook links naar taken om in links naar de desbetreffende werkmap.</p>
-        <label for="input">Door Digidoc gemaakte hyperlink:</label>
-        <input id="input" type="text" placeholder="Plak hier een link" />
 
-        <div style="margin-top: 1rem">
-            <p>Nieuwe link (wordt meteen gekopieerd naar het klembord): <a href="#" id="output"></a></p>
+<head>
+    <title>Tool voor Digidoclink</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <main>
+        <h1>Digidoclink</h1>
+        <p class="subtitle">Van Digidoc-gebruikers, voor Digidoc-gebruikers.</p>
+
+        <h2>Aanleiding</h2>
+        <p>Digidoc biedt een manier om hyperlinks aan te maken. Deze manier is om diverse redenen niet ideaal.</p>
+
+        <h2>Kern</h2>
+        <p>De tool 'Digidoclink' zet een links om in handiger formaat.</p>
+
+        <h2>Gebruik</h2>
+        <p>Voer hieronder een door Digidoc gemaakte hyperlink in:</p>
+        <p><input id="input" type="text" placeholder="Plak hier een link" /></p>
+
+        <div id="output" class="hidden">
+            <p>Gebruik één van onderstaande links. De eerste is automatisch gekopieërd naar het klembord.</p>
+            <ol>
+                <li>Via Digidoclink.nl: <a href="#" id="output-proxy"></a></li>
+                <li>Digidoc online: <a href="#" id="output-online"></a></li>
+                <li>Digidoc offline: <a href="#" id="output-offline"></a></li>
+            </ol>
         </div>
-    </body>
-    <script src="./script.js"></script>
+    </main>
+</body>
+
+<script src="./common.js"></script>
+<script src="./index.js"></script>
+<script>run();</script>
+
 </html>
