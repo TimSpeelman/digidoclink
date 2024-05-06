@@ -19,12 +19,15 @@ const OBJECT_TYPE_TO_NUMBER = {
  * ObjectData :: {
  *   id: string,
  *   type: string, // 1, 2, ..
- *   host: string,
+ *   host?: string,
  *   variant?: 'online' | 'offline'
  * }
  */
 function getObjectDataFromURL(urlString) {
     try {
+        const dataFromProxy = tryParseProxyLink(urlString);
+        if(dataFromProxy) return dataFromProxy;
+
         for (const host in HOSTS) {
             const data = tryParseWithHost({ urlString, host: HOSTS[host] });
 
@@ -37,6 +40,17 @@ function getObjectDataFromURL(urlString) {
     } catch (e) {
         console.warn("Failed to parse URL", urlString, "got error", e)
         return false;
+    }
+}
+
+function tryParseProxyLink(urlString) {
+    const input = new URL(urlString);
+    if(input.pathname === BASE_URL_PROXY.pathname) {
+        const id = input.searchParams.get('id');
+        const type = input.searchParams.get('type');
+        const host = input.searchParams.get('host') || DEFAULT_HOST;
+        const variant = input.searchParams.get('variant');
+        return { id, type, host, variant };
     }
 }
 
@@ -138,7 +152,7 @@ function toProxyLink(data) {
     const url = new URL(BASE_URL_PROXY);
     url.searchParams.set('id', data.id);
     url.searchParams.set('type', data.type);
-    url.searchParams.set('host', data.host);
+    if(data.host !== undefined) url.searchParams.set('host', data.host);
     if(data.variant) url.searchParams.set('variant', data.variant);
     return url;
 }
@@ -166,4 +180,11 @@ function getLocallyStoredFavoriteVariant() {
 function storeFavoriteVariantLocally(variant) {
     console.log('Storing favorite variant', variant)
     localStorage.setItem('favoriteVariant', variant);
+}
+
+function dropHostWhenDefault(data) {
+    return {
+        ...data,
+        host: data.host === DEFAULT_HOST ? undefined : data.host
+    }
 }

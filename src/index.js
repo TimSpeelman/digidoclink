@@ -23,7 +23,7 @@ function handleInputLinkChange() {
             setInputInvalid(false);
         }
 
-        const urlProxy = toProxyLink(data);
+        const urlProxy = toProxyLink(dropHostWhenDefault(data));
         const urlOnline = toOnlineDigidocLink(data);
         const urlOffline = toOfflineDigidocLink(data);
 

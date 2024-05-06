@@ -1,32 +1,40 @@
 <html>
 
 <head>
-    <title>Tool voor Digidoclink</title>
+    <meta charset="utf-8"/>
+    <title>Digidoclink.nl</title>
     <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
     <main>
         <h1>Digidoclink</h1>
-        <p class="subtitle">Van Digidoc-gebruikers, voor Digidoc-gebruikers.</p>
+        <p class="subtitle">Hulpmiddel van Digidoc-gebruikers, voor Digidoc-gebruikers.</p>
 
         <h2>Aanleiding</h2>
-        <p>Digidoc biedt een manier om hyperlinks aan te maken. Deze manier is om diverse redenen niet ideaal.</p>
+        <p>Digidoc biedt een manier om links aan te maken naar (sub)dossiers, werkmappen of bestanden. Deze links zijn om diverse redenen niet ideaal.</p>
 
         <h2>Kern</h2>
-        <p>De tool 'Digidoclink' zet een links om in handiger formaat.</p>
+        <p>De tool 'Digidoclink' zet deze links om in:</p>
+        <ol>
+            <li>Een link naar Digidoc Online. Originele links naar Digidoc Online brengen de gebruiker naar een beperkte weergave. Digidoclink lost dat op.</li>
+            <li>Een link naar Digidoc Desktop.</li>
+            <li>Een doorverwijslink via digidoclink.nl. Hiermee krijgt de gebruiker na het klikken op de link de keuze tussen Digidoc Online en Digidoc Desktop.</li>
+        </ol>
 
         <h2>Gebruik</h2>
-        <p>Voer hieronder een door Digidoc gemaakte hyperlink in:</p>
-        <p><input id="input" type="text" placeholder="Plak hier een link" /></p>
+        <p>Voer hieronder een door Digidoc gemaakte link in:</p>
+        <div id="form">
+            <p><input id="input" type="text" placeholder="Plak hier een link" /></p>
 
-        <div id="output" class="hidden">
-            <p>Gebruik één van onderstaande links. De eerste is automatisch gekopieërd naar het klembord.</p>
-            <ol>
-                <li>Via Digidoclink.nl: <a href="#" id="output-proxy"></a></li>
-                <li>Digidoc online: <a href="#" id="output-online"></a></li>
-                <li>Digidoc offline: <a href="#" id="output-offline"></a></li>
-            </ol>
+            <div id="output" class="hidden">
+                <p>Gebruik één van onderstaande links. De laatste is automatisch gekopieërd naar het klembord.</p>
+                <ol>
+                    <li>Digidoc Online:<br/><a href="#" id="output-online"></a></li>
+                    <li>Digidoc Desktop:<br/><a href="#" id="output-offline"></a></li>
+                    <li>Via Digidoclink.nl:<br/><a href="#" id="output-proxy"></a></li>
+                </ol>
+            </div>
         </div>
     </main>
 </body>

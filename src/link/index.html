@@ -1,14 +1,20 @@
 <html>
 
 <head>
-    <title>Digidoclink doorstuurpagina</title>
+    <meta charset="utf-8"/>
+    <title>Digidoclink.nl doorverwijzing</title>
     <link rel="stylesheet" href="../style.css" />
 </head>
 
 <body>
     <main>
-        <p>Je wordt binnen <span id="seconds">x seconden</span> doorgestuurd naar <span id="redirect-target">Digidoc Online</span>..</p>
-        <p><a href="#" id="output-alt"></a></p>
+        <p class="message">We sturen je automatisch door. Gebeurt dat niet? Klik hieronder:</p>
+        <div id="buttons" class="buttons">
+            <a href="#" class="forward-button" id="output-offline">Digidoc Desktop*</a>
+            <a href="#" class="forward-button" id="output-online">Digidoc Online</a>
+        </div>
+        <p>* Zorg dat de Digidoc Desktop applicatie geopend is.</p>
+        <p><a href="/">Wat is digidoclink.nl?</a></p>
     </main>
 </body>
 

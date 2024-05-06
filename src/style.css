@@ -39,7 +39,7 @@ input {
 }
 
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 .invalid {
@@ -48,4 +48,35 @@ input {
 
 .invalid:focus {
     outline-color: red;
+}
+
+.buttons {
+    display: flex;
+}
+
+.forward-button {
+    flex: 1;
+    margin-right: 0.5rem;
+    display: block;
+    text-align: center;
+    padding: 0.5rem;
+    background: #eee;
+    color: inherit;
+    text-decoration: none;
+    border-radius: .2em;
+
+    /* "to left" / "to right" - affects initial color */
+    background: linear-gradient(to left, #eee 50%, #c1c9d6 50%) right;
+    background-size: 200%;
+    transition: none;
+    margin-bottom: 1em;
+}
+
+.forward-button.forwarding {
+    background-position: left;
+    transition: all 3s linear; /* transition time will be adjusted by js */
+}
+
+.forward-button:first-child {
+    margin-left: 0;
 }
