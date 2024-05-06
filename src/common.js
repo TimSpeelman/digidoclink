@@ -5,12 +5,13 @@ const DEFAULT_HOST = '1';
 const DEFAULT_VARIANT = getLocallyStoredFavoriteVariant() || 'online';
 
 const BASE_URL_PROXY = new URL('/link', window.location.href);
-const SUPPORTED_ONLINE_TYPES = ['2', '7'];
+const SUPPORTED_ONLINE_TYPES = ['1', '2', '7'];
 
 const PATH_ONLINE_TAAK_LINK = '/app/inboxen';
 const PATH_ONLINE = '/tabs/module/favorieten';
 
 const OBJECT_TYPE_TO_NUMBER = {
+    'dossier': '1',
     'subdossier': '2',
     'werkmap': '7',
 }
