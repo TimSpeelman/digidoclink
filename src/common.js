@@ -75,7 +75,7 @@ function normalizeObjectType(objectType) {
 
 /** Replace numeric ID of objectTypes with their string representation if known (such as 'werkmap') */
 function getTextVariantOfObjectType(objectTypeNumber) {
-    return Object.keys(OBJECT_TYPE_TO_NUMBER).find(key => OBJECT_TYPE_TO_NUMBER[key] === `${objectTypeNumber}`);
+    return Object.keys(OBJECT_TYPE_TO_NUMBER).find(key => OBJECT_TYPE_TO_NUMBER[key] === `${objectTypeNumber}`) || objectTypeNumber;
 }
 
 function parseDigidocOfflineBase64Data(base64EncodedData) {
