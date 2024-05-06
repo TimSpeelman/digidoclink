@@ -136,6 +136,7 @@ function toSingleModeLink(data) {
     const url = new URL(host);
     url.searchParams.set('navigationType', 'hyperlink');
     url.searchParams.set('objectId', data.id);
+    url.searchParams.set('actionType', 'view');
     url.searchParams.set('objectType', getTextVariantOfObjectType(data.type));
     return url;
 }
