@@ -156,7 +156,7 @@ function toSingleModeLink(data) {
 function toOfflineDigidocLink(data) {
     const optionalAsterisk = useAsterisk(data) ? '*' : '';
     const plaintext = `id={${data.id}}&type=${data.type}`;
-    const encoded = btoa(plaintext);
+    const encoded = removeBase64Padding(btoa(plaintext));
     const prefix = HOSTS[data.host].offlineRoot;
     const url = new URL(`${prefix}${encoded}${optionalAsterisk}`);
     return url;
@@ -209,4 +209,8 @@ function useAsterisk(data) {
     } catch {
         return false;
     }
+}
+
+function removeBase64Padding(base64) {
+    return base64.replace(/=+$/, '');
 }
