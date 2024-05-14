@@ -10,6 +10,9 @@ const SUPPORTED_ONLINE_TYPES = ['1', '2', '7'];
 const PATH_ONLINE_TAAK_LINK = '/app/inboxen';
 const PATH_ONLINE = '/tabs/module/favorieten';
 
+/** Digidoc offline links end with an asterisk for certain object types. We assume this happens for types of 100 or higher. */
+const USE_ASTERISK_FROM = 100; 
+
 const OBJECT_TYPE_TO_NUMBER = {
     'dossier': '1',
     'subdossier': '2',
@@ -57,7 +60,7 @@ function tryParseProxyLink(urlString) {
 
 function tryParseWithHost({ urlString, host: { onlineRoot, offlineRoot } }) {
     if(urlString.startsWith(offlineRoot)) {
-        return parseDigidocOfflineBase64Data(urlString.replace(offlineRoot, ''));
+        return parseDigidocOfflineLink(urlString, offlineRoot);
     } else if(urlString.startsWith(onlineRoot)) {
         return parseDigidocOnlineLink(urlString);
     } else {
@@ -79,13 +82,21 @@ function getTextVariantOfObjectType(objectTypeNumber) {
     return Object.keys(OBJECT_TYPE_TO_NUMBER).find(key => OBJECT_TYPE_TO_NUMBER[key] === `${objectTypeNumber}`) || objectTypeNumber;
 }
 
-function parseDigidocOfflineBase64Data(base64EncodedData) {
+function parseDigidocOfflineLink(urlString, offlineRoot) {
+    const hasAsterisk = urlString.endsWith('*');
+    const base64EncodedData = urlString.substring(0, hasAsterisk ? urlString.length - 1 : urlString.length).replace(offlineRoot, '');
     const plaintextData = atob(base64EncodedData); // `id={[id]}&type=[type]`
     const plaintextDataNormalized = plaintextData.replace(/[{}]/g, ''); // `id=[id]&type=[type]`
 
     const asUrl = new URL("?" + plaintextDataNormalized, 'http://example.com');
     const id = asUrl.searchParams.get('id');
     const type = normalizeObjectType(asUrl.searchParams.get('type'));
+
+    const typeShouldHaveAsterisk = useAsterisk({ type });
+
+    if(hasAsterisk !== typeShouldHaveAsterisk) {
+        throw new Error("Asterisk mismatch");
+    }
 
     return { id, type };
 }
@@ -143,10 +154,11 @@ function toSingleModeLink(data) {
 }
 
 function toOfflineDigidocLink(data) {
+    const optionalAsterisk = useAsterisk(data) ? '*' : '';
     const plaintext = `id={${data.id}}&type=${data.type}`;
     const encoded = btoa(plaintext);
     const prefix = HOSTS[data.host].offlineRoot;
-    const url = new URL(`${prefix}${encoded}`);
+    const url = new URL(`${prefix}${encoded}${optionalAsterisk}`);
     return url;
 }
 
@@ -188,5 +200,13 @@ function dropHostWhenDefault(data) {
     return {
         ...data,
         host: data.host === DEFAULT_HOST ? undefined : data.host
+    }
+}
+
+function useAsterisk(data) {
+    try {
+        return Number(normalizeObjectType(data.type)) >= USE_ASTERISK_FROM;
+    } catch {
+        return false;
     }
 }
