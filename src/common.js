@@ -92,10 +92,10 @@ function parseDigidocOfflineLink(urlString, offlineRoot) {
     const id = asUrl.searchParams.get('id');
     const type = normalizeObjectType(asUrl.searchParams.get('type'));
 
-    const typeShouldHaveAsterisk = useAsterisk({ type });
+    const renderedUrl = toOfflineDigidocLink({ id, type, host: DEFAULT_HOST });
 
-    if(hasAsterisk !== typeShouldHaveAsterisk) {
-        throw new Error("Asterisk mismatch");
+    if(urlString !== renderedUrl) {
+        throw new Error("Rendered URL is not the same as input URL.");
     }
 
     return { id, type };
