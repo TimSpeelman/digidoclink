@@ -68,10 +68,6 @@ function tryParseWithHost({ urlString, host: { onlineRoot, offlineRoot } }) {
     }
 }
 
-function objectTypeToNumber(type) {
-    return OBJECT_TYPE_TO_NUMBER[type];
-}
-
 /** Replace string objectTypes (such as 'werkmap') by their numeric ID */
 function normalizeObjectType(objectType) {
     return (objectType in OBJECT_TYPE_TO_NUMBER) ? OBJECT_TYPE_TO_NUMBER[objectType] : objectType;
@@ -92,10 +88,10 @@ function parseDigidocOfflineLink(urlString, offlineRoot) {
     const id = asUrl.searchParams.get('id');
     const type = normalizeObjectType(asUrl.searchParams.get('type'));
 
-    const renderedUrl = toOfflineDigidocLink({ id, type, host: DEFAULT_HOST });
+    const renderedUrl = toOfflineDigidocLink({ id, type, host: DEFAULT_HOST }).toString();
 
     if(urlString !== renderedUrl) {
-        throw new Error("Rendered URL is not the same as input URL.");
+        throw new Error(`Rendered URL (${renderedUrl}) is not the same as input URL (${urlString}).`);
     }
 
     return { id, type };
